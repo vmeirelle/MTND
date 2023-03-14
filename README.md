@@ -39,5 +39,47 @@ A metodologia do software é baseada na estruturação do código de forma modul
 
 Os testes foram realizados de acordo casos específicos conhecidos ao executar o programa. O versionamento foi controlado de acordo seu envio a plataforma Git.
 
+## Resultados e Conclusões
+
+## Resultados
+
+De maneira a executar testes empíricos, utilizando a biblioteca Numpy aliada a Sci-KitLearn, foi possível tratar um vetor de palavras gerados em relação a um segundo vetor de tempo de execução do código. Essa comparação foi plotada e com a linearização possível ver um tempo estimado de execução do código para as palavras que podem ser aceitas pela MTND.
+O código abaixo mostra as alterações incluídas no código apresentado no repositório para ser possível imprimir o gráfico e acesso à regressão.
+
+```
+test_words = ['ab']                              #Geração de i palavras
+for i in range (0, 100):
+    test_words.append( 'a' + test_words0[i] + 'b')
 
 
+language.test_words = test_words                 #Colocação na MTND
+
+tempos = []                                       
+
+for word in language.test_words:                 #Execução de i palavras
+    ini = time.time()*1000
+    language.process_word(word, language.initial_state)
+    fin = time.time()*1000
+    tempos.append(fin - ini)
+
+plt.xlabel('Tamanho da Palvara')        #Impressao do gráfico com regressão linear
+plt.ylabel('Tempo de Execução (ms)')
+x = np.array(list(zip(range(0,101))))
+y = np.array(tempos)
+plt.scatter(x, tempos)
+lr = LinearRegression()
+lr.fit(x,y)
+plt.plot(x, lr.predict(x), color='red')
+plt.show()
+```
+Apresentado então o gráfico que ilustra o tempo de execução à medida que o tamanho da palavra máquina cresce, apresente uma regressão linear.
+
+![image](https://user-images.githubusercontent.com/50549048/224910752-c88dbf89-d26c-446d-b1e1-f05736a8efd7.png)
+
+## Conclusão
+
+A implementação apresentada é um exemplo de como uma máquina de Turing não determinística pode ser implementada em Python. Através dessa implementação, é possível entender melhor o funcionamento de uma MTND e como ela pode ser usada para resolver problemas em diversas áreas.
+
+O tempo de execução do código foi satisfatório, o crescimento do tempo de execução seguiu o esperado para a MT analisada. 
+
+A implementação pode ser expandida para incluir outras funcionalidades, como a leitura de entrada de arquivos ou a geração de saída em diferentes formatos.
